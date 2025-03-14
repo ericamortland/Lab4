@@ -1,7 +1,11 @@
 ---
 title: "ESS 330 Lab 4: Statistical Analysis in R"
 author: "Erica Mortland"
-output: html_document
+format: 
+  html: 
+    self-contained: true
+execute:
+  echo: true
 ---
 
 ```{r setup, include=FALSE}
@@ -33,6 +37,7 @@ salamander_data <- and_vertebrates %>%
 cont_table <- table(salamander_data$section, salamander_data$unittype)
 chisq.test(cont_table)
 ```
+Findings: The chi-square test shows a significant relationship between forest type and channel unit (X² = r chisq_test_result$statistic, p = r chisq_test_result$p.value), indicating these variables are aren't independent.
 
 ## 2. T-test: Biomass Differences in Coastal Giant Salamander
 ```{r}
@@ -40,6 +45,7 @@ salamander_data <- salamander_data %>% drop_na(weight_g)
 
 t.test(log(salamander_data$weight_g) ~ salamander_data$section, var.equal = TRUE)
 ```
+Findings: The t-test suggests a difference in biomass between forest types (t = r t_test_result$statistic, p = r t_test_result$p.value). The log-transformed biomass was higher in one forest type.
 
 ## 3. Correlation Test: Length vs. Weight (Cutthroat Trout)
 ```{r}
@@ -49,6 +55,7 @@ trout_data <- and_vertebrates %>%
 
 cor.test(log(trout_data$length_1_mm), log(trout_data$weight_g))
 ```
+Findings: The Pearson correlation test shows a strong positive relationship between length and weight (r = r correlation_result$estimate, p = r correlation_result$p.value), indicating larger fish tend to weigh more.
 
 # Part 2: Multivariate Statistics
 ## Load Fiddler Crab Dataset
@@ -63,6 +70,7 @@ pie_anova <- aov(size ~ site, data = pie_crab)
 summary(pie_anova)
 TukeyHSD(pie_anova)
 ```
+Findings: ANOVA shows a  difference in crab size across sites (F = r summary(pie_anova)[[1]][["F value"]][1], p = r summary(pie_anova)[[1]][["Pr(>F)"]][1]). Tukey's test reveals which sites differ significantly.
 
 ## 5. Simple Linear Regression: Water Temp SD vs. Carapace Width
 ```{r}
@@ -76,3 +84,51 @@ cor(pie_crab %>% select(latitude, air_temp_sd, water_temp_sd))
 pie_mlm <- lm(size ~ latitude + air_temp_sd + water_temp_sd, data = pie_crab)
 summary(pie_mlm)
 ```
+
+```{r}
+
+pie_crab <- pie_crab %>%
+  distinct(site, .keep_all = TRUE) %>%
+  arrange(latitude) %>%
+  mutate(site = factor(site, levels = unique(site)))  # Set levels based on unique sites in order of latitude
+
+# Plot the boxplot
+ggplot(pie_crab, aes(x = site, y = size)) +
+  geom_boxplot() +
+  xlab("Site") +
+  ylab("Carapace Width (size)") +
+  ggtitle("Carapace Width Across Sites Ordered by Latitude") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+```{r}
+
+pie_anova <- aov(size ~ site, data = pie_crab)
+summary(pie_anova)
+
+TukeyHSD(pie_anova)
+
+```
+```{r}
+pie_lm <- lm(size ~ water_temp_sd, data = pie_crab)
+summary(pie_lm)
+
+ggplot(pie_crab, aes(x = water_temp_sd, y = size)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  xlab("Water Temperature Standard Deviation") +
+  ylab("Carapace Width (size)") +
+  ggtitle("Simple Linear Regression: Water Temperature SD vs. Carapace Width")
+```
+
+```{r}
+cor(pie_crab %>% select(latitude, air_temp_sd, water_temp_sd))
+
+pie_mlm <- lm(size ~ latitude + air_temp_sd + water_temp_sd, data = pie_crab)
+summary(pie_mlm)
+```
+
+
+
+The regression confirms that latitude, air temperature variation, and water temperature variation significantly influence crab size.
