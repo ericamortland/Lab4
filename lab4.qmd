@@ -1,0 +1,78 @@
+---
+title: "ESS 330 Lab 4: Statistical Analysis in R"
+author: "Your Name"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(lterdatasampler)
+library(car)
+library(visdat)
+remotes::install_github("lter/lterdatasampler")
+```
+
+# Load Dataset
+```{r}
+data("and_vertebrates")
+glimpse(and_vertebrates)
+```
+
+## 1. Chi-Square Test: Forest Type & Channel Unit (Coastal Giant Salamander)
+```{r}
+salamander_data <- and_vertebrates %>% 
+  filter(species == "Coastal giant salamander") %>% 
+  drop_na(unittype, section)
+
+cont_table <- table(salamander_data$section, salamander_data$unittype)
+chisq.test(cont_table)
+```
+
+## 2. T-test: Biomass Differences in Coastal Giant Salamander
+```{r}
+salamander_data <- salamander_data %>% drop_na(weight_g)
+
+t.test(log(salamander_data$weight_g) ~ salamander_data$section, var.equal = TRUE)
+```
+
+## 3. Correlation Test: Length vs. Weight (Cutthroat Trout)
+```{r}
+trout_data <- and_vertebrates %>% 
+  filter(species == "Cutthroat trout") %>% 
+  drop_na(length_1_mm, weight_g)
+
+cor.test(log(trout_data$length_1_mm), log(trout_data$weight_g))
+```
+
+# Part 2: Multivariate Statistics
+## Load Fiddler Crab Dataset
+```{r}
+data("pie_crab")
+glimpse(pie_crab)
+```
+
+## 4. ANOVA & Tukey’s HSD: Crab Size Across Sites
+```{r}
+pie_anova <- aov(size ~ site, data = pie_crab)
+summary(pie_anova)
+TukeyHSD(pie_anova)
+```
+
+## 5. Simple Linear Regression: Water Temp SD vs. Carapace Width
+```{r}
+pie_lm <- lm(size ~ water_temp_sd, data = pie_crab)
+summary(pie_lm)
+```
+
+## 6. Multiple Linear Regression
+```{r}
+cor(pie_crab %>% select(latitude, air_temp_sd, water_temp_sd))
+pie_mlm <- lm(size ~ latitude + air_temp_sd + water_temp_sd, data = pie_crab)
+summary(pie_mlm)
+```
