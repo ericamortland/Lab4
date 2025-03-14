@@ -139,25 +139,16 @@ The following object is masked from 'package:purrr':
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"lter/lterdatasampler"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Using GitHub PAT from the git credential store.
-Downloading GitHub repo lter/lterdatasampler@HEAD
-Running `R CMD build`...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>* checking for file ‘/private/var/folders/0p/68kjl7695h30qj8rqhbbc2980000gn/T/RtmpmbGSWK/remotesb10f2aecf76b/lter-lterdatasampler-ff78476/DESCRIPTION’ ... OK
-* preparing ‘lterdatasampler’:
-* checking DESCRIPTION meta-information ... OK
-* checking for LF line-endings in source and make files and shell scripts
-* checking for empty or unneeded directories
-Removed empty directory ‘lterdatasampler/vignettes’
-* building ‘lterdatasampler_0.1.1.tar.gz’</code></pre>
+Skipping install of 'lterdatasampler' from a github remote, the SHA1 (ff784768) has not changed since last install.
+  Use `force = TRUE` to force installation</code></pre>
 </div>
 </div>
 </section>
 <section id="load-dataset" class="level1">
 <h1>Load Dataset</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"and_vertebrates"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(and_vertebrates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"and_vertebrates"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(and_vertebrates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 32,209
 Columns: 16
@@ -182,12 +173,12 @@ $ notes       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <section id="chi-square-test-forest-type-channel-unit-coastal-giant-salamander" class="level2">
 <h2 class="anchored" data-anchor-id="chi-square-test-forest-type-channel-unit-coastal-giant-salamander">1. Chi-Square Test: Forest Type &amp; Channel Unit (Coastal Giant Salamander)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>salamander_data <span class="ot">&lt;-</span> and_vertebrates <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Coastal giant salamander"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(unittype, section)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>cont_table <span class="ot">&lt;-</span> <span class="fu">table</span>(salamander_data<span class="sc">$</span>section, salamander_data<span class="sc">$</span>unittype)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(cont_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>salamander_data <span class="ot">&lt;-</span> and_vertebrates <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Coastal giant salamander"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(unittype, section)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>cont_table <span class="ot">&lt;-</span> <span class="fu">table</span>(salamander_data<span class="sc">$</span>section, salamander_data<span class="sc">$</span>unittype)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(cont_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in chisq.test(cont_table): Chi-squared approximation may be incorrect</code></pre>
 </div>
@@ -203,9 +194,9 @@ X-squared = 200.71, df = 5, p-value &lt; 2.2e-16</code></pre>
 <section id="t-test-biomass-differences-in-coastal-giant-salamander" class="level2">
 <h2 class="anchored" data-anchor-id="t-test-biomass-differences-in-coastal-giant-salamander">2. T-test: Biomass Differences in Coastal Giant Salamander</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>salamander_data <span class="ot">&lt;-</span> salamander_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(weight_g)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="fu">log</span>(salamander_data<span class="sc">$</span>weight_g) <span class="sc">~</span> salamander_data<span class="sc">$</span>section, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>salamander_data <span class="ot">&lt;-</span> salamander_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(weight_g)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="fu">log</span>(salamander_data<span class="sc">$</span>weight_g) <span class="sc">~</span> salamander_data<span class="sc">$</span>section, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -224,11 +215,11 @@ mean in group CC mean in group OG
 <section id="correlation-test-length-vs.-weight-cutthroat-trout" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-test-length-vs.-weight-cutthroat-trout">3. Correlation Test: Length vs.&nbsp;Weight (Cutthroat Trout)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trout_data <span class="ot">&lt;-</span> and_vertebrates <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Cutthroat trout"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(length_1_mm, weight_g)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="fu">log</span>(trout_data<span class="sc">$</span>length_1_mm), <span class="fu">log</span>(trout_data<span class="sc">$</span>weight_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>trout_data <span class="ot">&lt;-</span> and_vertebrates <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Cutthroat trout"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(length_1_mm, weight_g)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="fu">log</span>(trout_data<span class="sc">$</span>length_1_mm), <span class="fu">log</span>(trout_data<span class="sc">$</span>weight_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -250,8 +241,8 @@ sample estimates:
 <section id="load-fiddler-crab-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="load-fiddler-crab-dataset">Load Fiddler Crab Dataset</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"pie_crab"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pie_crab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"pie_crab"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pie_crab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 392
 Columns: 9
@@ -270,8 +261,8 @@ $ name          &lt;chr&gt; "Guana Tolomoto Matanzas NERR", "Guana Tolomoto Mata
 <section id="anova-tukeys-hsd-crab-size-across-sites" class="level2">
 <h2 class="anchored" data-anchor-id="anova-tukeys-hsd-crab-size-across-sites">4. ANOVA &amp; Tukey’s HSD: Crab Size Across Sites</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pie_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> site, <span class="at">data =</span> pie_crab)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pie_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> site, <span class="at">data =</span> pie_crab)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)    
 site         12   2172  181.03   26.12 &lt;2e-16 ***
@@ -279,7 +270,7 @@ Residuals   379   2626    6.93
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(pie_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(pie_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -372,8 +363,8 @@ ZI-VCR  -4.27195238  -6.45572770 -2.08817706 0.0000000</code></pre>
 <section id="simple-linear-regression-water-temp-sd-vs.-carapace-width" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression-water-temp-sd-vs.-carapace-width">5. Simple Linear Regression: Water Temp SD vs.&nbsp;Carapace Width</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pie_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> water_temp_sd, <span class="at">data =</span> pie_crab)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pie_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> water_temp_sd, <span class="at">data =</span> pie_crab)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -399,15 +390,15 @@ F-statistic: 0.3999 on 1 and 390 DF,  p-value: 0.5275</code></pre>
 <section id="multiple-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-linear-regression">6. Multiple Linear Regression</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(pie_crab <span class="sc">%&gt;%</span> <span class="fu">select</span>(latitude, air_temp_sd, water_temp_sd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(pie_crab <span class="sc">%&gt;%</span> <span class="fu">select</span>(latitude, air_temp_sd, water_temp_sd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                latitude air_temp_sd water_temp_sd
 latitude      1.00000000   0.7932130    0.04188273
 air_temp_sd   0.79321301   1.0000000    0.40970338
 water_temp_sd 0.04188273   0.4097034    1.00000000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pie_mlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> latitude <span class="sc">+</span> air_temp_sd <span class="sc">+</span> water_temp_sd, <span class="at">data =</span> pie_crab)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_mlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pie_mlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> latitude <span class="sc">+</span> air_temp_sd <span class="sc">+</span> water_temp_sd, <span class="at">data =</span> pie_crab)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_mlm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
