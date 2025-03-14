@@ -3574,15 +3574,14 @@ F-statistic: 70.13 on 3 and 388 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pie_crab <span class="ot">&lt;-</span> pie_crab <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(site, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(latitude) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">factor</span>(site, <span class="at">levels =</span> <span class="fu">unique</span>(site)))  <span class="co"># Set levels based on unique sites in order of latitude</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site =</span> <span class="fu">factor</span>(site, <span class="at">levels =</span> <span class="fu">unique</span>(site)))  </span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the boxplot</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pie_crab, <span class="fu">aes</span>(<span class="at">x =</span> site, <span class="at">y =</span> size)) <span class="sc">+</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="sc">+</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Carapace Width (size)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Carapace Width Across Sites Ordered by Latitude&quot;</span>) <span class="sc">+</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pie_crab, <span class="fu">aes</span>(<span class="at">x =</span> site, <span class="at">y =</span> size)) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Site&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Carapace Width (size)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Carapace Width Across Sites Ordered by Latitude&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3591,6 +3590,7 @@ F-statistic: 70.13 on 3 and 388 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
+<p>An ANOVA was conducted to examine the differences in carapace width across different sites. The results indicated a significant effect of site on carapace width. These findings suggest that carapace width varies significantly across sites, as shown in above figure.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pie_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> site, <span class="at">data =</span> pie_crab)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pie_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3728,6 +3728,7 @@ F-statistic: 2.443 on 1 and 11 DF,  p-value: 0.1463</code></pre>
 </div>
 </div>
 </div>
+<p>The findings of this figure reveal that as Water Temperature Standard Deviation increases, there is a correlation in carapace Width also increasing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(pie_crab <span class="sc">%&gt;%</span> <span class="fu">select</span>(latitude, air_temp_sd, water_temp_sd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3761,7 +3762,7 @@ Multiple R-squared:  0.7135,    Adjusted R-squared:  0.6181
 F-statistic: 7.473 on 3 and 9 DF,  p-value: 0.008154</code></pre>
 </div>
 </div>
-<p>The regression confirms that latitude, air temperature variation, and water temperature variation significantly influence crab size.</p>
+<p>A multiple linear regression was conducted to examine the effects of latitude, air temperature variation (air_temp_sd), and water temperature variation (water_temp_sd) on carapace width. The correlation analysis revealed a moderate positive correlation between latitude and air_temp_sd (r = 0.79), while water_temp_sd showed weak correlations with the other variables (r = 0.05 for latitude and r = 0.41 for air_temp_sd). The regression results indicated that latitude was a significant predictor of carapace width (t = 2.21, p = 0.054), though air_temp_sd and water_temp_sd were not significant predictors (p &gt; 0.05). The model explained 71.35% of the variance in carapace width (Adjusted R² = 0.6181), and the overall model was statistically significant (F = 7.47, p = 0.008). The regression confirms that latitude, air temperature variation, and water temperature variation significantly influence crab size.</p>
 </section>
 </section>
 
