@@ -1,6 +1,6 @@
 ---
 title: "ESS 330 Lab 4: Statistical Analysis in R"
-author: "Your Name"
+author: "Erica Mortland"
 output: html_document
 ---
 
